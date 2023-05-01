@@ -1,86 +1,92 @@
 package com.it_academy.pageobject.onliner;
 
+import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
 import com.it_academy.pageobject.BasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
-import java.util.List;
-
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$$x;
 import static java.lang.String.format;
+import static java.time.Duration.ofSeconds;
+
 
 public class CatalogPage extends BasePage {
 
-    private static final String ELEMENTS_XPATH =
-            "//ul[@class='catalog-navigation-classifier ']/li//span[normalize-space(text())]";
+    private final ElementsCollection CATALOG_CLASSIFIER_LINKS_XPATH
+            = $$x("//ul[@class='catalog-navigation-classifier ']/li//span[normalize-space(text())]");
 
+    private final SelenideElement CATALOG_CLASSIFIER_XPATH = $x("//div[@class='catalog-navigation-list " +
+            " catalog-navigation-list_active catalog-navigation-list_opened']");
 
-    private static final String CLASSIFIER_XPATH =
-            "//div[@class='catalog-navigation-list  catalog-navigation-list_active catalog-navigation-list_opened']";
-
-    private static final String SECTION_XPATH_PATTERN =
+    private static final String CATALOG_CLASSIFIER_LINK_XPATH_PATTERN =
             "//span[@class='catalog-navigation-classifier__item-title-wrapper' and contains(text(), '%s')]";
 
+    private final ElementsCollection CATALOG_CLASSIFIERS_XPATH = $$x("//div" +
+            "[@class='catalog-navigation-list__aside-list']/div/div[@class='catalog-navigation-list__aside-title']");
 
-    private static final String CLASSIFIERS_XPATH =
-            "//div[@class='catalog-navigation-list__aside-list']/div/div[@class='catalog-navigation-list__aside-title']";
-
-    private static final String CLASSIFIER_XPATH_PATTERN =
+    private static final String CATALOG_CLASSIFIER_ITEM_XPATH_PATTERN =
             "//div[contains(@class, 'aside-list')]//div[contains(@class, 'aside-title') and text() = '%s']";
 
-    private static final String PRODUCTS_XPATH =
-            "//div[contains(@class, 'aside-item_active')]//div[contains(@class, 'dropdown-list')]" +
-                    "/a[contains(@href, 'onliner')]";
+    private final ElementsCollection CATALOG_PRODUCTS_XPATH = $$x("//div[contains" +
+            "(@class, 'aside-item_active')]//div[contains(@class, 'dropdown-list')]/a[contains(@href, 'onliner')]");
 
-    private static final String PRODUCTS_TITLE_XPATH =
-            "//div[contains(@class, 'aside-item_active')]//div[contains(@class, 'dropdown-list')]" +
-                    "/a[contains(@href, 'onliner')]//span[contains(@class, 'title')]";
 
-    private static final String PRODUCTS_DESCRIPTION_XPATH =
-            "//div[contains(@class, 'aside-item_active')]//div[contains(@class, 'dropdown-list')]" +
-                    "/a[contains(@href, 'onliner')]//span[contains(@class, 'description')]";
+    private final ElementsCollection CATALOG_PRODUCTS_TITLE_XPATH = $$x("//div[contains" +
+            "(@class, 'aside-item_active')]//div[contains(@class, 'dropdown-list')]" +
+            "/a[contains(@href, 'onliner')]//span[contains(@class, 'title')]");
 
-    private static final String PRODUCT_XPATH_PATTERN =
+    private final ElementsCollection CATALOG_PRODUCTS_DESCRIPTION_XPATH = $$x("//div[contains" +
+            "(@class, 'aside-item_active')]//div[contains(@class, 'dropdown-list')]" +
+            "/a[contains(@href, 'onliner')]//span[contains(@class, 'description')]");
+
+    private static final String CATALOG_PRODUCT_XPATH_PATTERN =
             "//div[contains(@class, 'aside-item_active')]//div[contains(@class, 'dropdown-list')]"
                     + "/a[contains(@href, 'onliner')]//span[contains(@class, 'title') and contains(text(), '%s')]";
 
-    public List<WebElement> selectCatalogElements() {
-        return waitForExpectedElements(By.xpath(ELEMENTS_XPATH));
+    public ElementsCollection getCatalogClassifierLinks() {
+        return CATALOG_CLASSIFIER_LINKS_XPATH.shouldBe(CollectionCondition.allMatch
+                ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
     }
 
-    public boolean isCatalogClassifierIsDisplayed() {
-        return isElementDisplayed(By.xpath(CLASSIFIER_XPATH));
-    }
-
-    public CatalogPage clickOnSectionLink(String link) {
-        waitForElementVisible(By.xpath(format(SECTION_XPATH_PATTERN, link))).click();
-        return this;
-    }
-
-    public List<WebElement> selectCatalogClassifiers() {
-        return waitForExpectedElements(By.xpath(CLASSIFIERS_XPATH));
+    public void isCatalogClassifierDisplayed() {
+        CATALOG_CLASSIFIER_XPATH.shouldBe(visible, ofSeconds(30));
     }
 
     public CatalogPage clickOnCatalogClassifierLink(String link) {
-        waitForElementVisible(By.xpath(format(CLASSIFIER_XPATH_PATTERN, link)))
-                .click();
+        $x(format(CATALOG_CLASSIFIER_LINK_XPATH_PATTERN, link)).shouldBe(visible, ofSeconds(30)).click();
         return this;
     }
 
-    public List<WebElement> selectCatalogProducts() {
-        return waitForExpectedElements(By.xpath(PRODUCTS_XPATH));
+    public CatalogPage clickOnCatalogClassifierItem(String link) {
+        $x(format(CATALOG_CLASSIFIER_ITEM_XPATH_PATTERN, link)).shouldBe(visible, ofSeconds(30)).click();
+        return this;
     }
 
-    public List<WebElement> selectCatalogProductsTitle() {
-        return waitForExpectedElements(By.xpath(PRODUCTS_TITLE_XPATH));
+    public ElementsCollection getCatalogClassifiers() {
+        return CATALOG_CLASSIFIERS_XPATH.shouldBe(CollectionCondition.anyMatch
+                ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
+
     }
 
-    public List<WebElement> selectCatalogProductsDescription() {
-        return waitForExpectedElements(By.xpath(PRODUCTS_DESCRIPTION_XPATH));
+    public ElementsCollection getCatalogProducts() {
+        return CATALOG_PRODUCTS_XPATH.shouldBe(CollectionCondition.allMatch
+                ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
+    }
+
+    public ElementsCollection getCatalogProductsTitle() {
+        return CATALOG_PRODUCTS_TITLE_XPATH.shouldBe(CollectionCondition.allMatch
+                ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
+    }
+
+    public ElementsCollection getCatalogProductsDescription() {
+        return CATALOG_PRODUCTS_DESCRIPTION_XPATH.shouldBe(CollectionCondition.allMatch
+                ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
     }
 
     public ProductPage clickOnProductLink(String product) {
-        waitForElementVisible(By.xpath(format(PRODUCT_XPATH_PATTERN, product)))
-                .click();
+        $x(format(CATALOG_PRODUCT_XPATH_PATTERN, product)).shouldBe(visible, ofSeconds(30)).click();
         return new ProductPage();
     }
 

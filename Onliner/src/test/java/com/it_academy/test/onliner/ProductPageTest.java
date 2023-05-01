@@ -1,100 +1,81 @@
 package com.it_academy.test.onliner;
 
-import com.it_academy.pageobject.onliner.CatalogPage;
+import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.ElementsCollection;
+import com.it_academy.pageobject.onliner.HomePage;
 import com.it_academy.pageobject.onliner.ProductPage;
 import com.it_academy.test.BaseTest;
-import org.assertj.core.api.SoftAssertions;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
-import java.util.List;
-
 public class ProductPageTest extends BaseTest {
-    CatalogPage catalogPage = new CatalogPage();
+
+    HomePage homePage = new HomePage();
     ProductPage productPage = new ProductPage();
 
     @Test
     public void checkHeadPhonesParentProducts() {
 
-        List<WebElement> parentProducts = catalogPage
-                .clickOnSectionLink("Электроника")
-                .clickOnCatalogClassifierLink(" Аудиотехника ")
+        ElementsCollection parentProducts = homePage
+                .clickOnCatalogLink("Каталог")
+                .clickOnCatalogClassifierLink("Электроника")
+                .clickOnCatalogClassifierItem(" Аудиотехника ")
                 .clickOnProductLink("Наушники")
-                .selectParentProducts();
+                .getParentProducts();
 
-        List<WebElement> parentProductsTitles = productPage
-                .selectParentProductsTitle();
+        ElementsCollection parentProductsTitles = productPage
+                .getParentProductsTitles();
 
-        List<WebElement> parentProductsDescriptions = productPage
-                .selectParentProductsDescriptions();
+        ElementsCollection parentProductsDescriptions = productPage
+                .getParentProductsDescriptions();
 
-        List<WebElement> parentProductsRatings = productPage
-                .selectParentProductsRatings();
+        ElementsCollection parentProductsRatings = productPage
+                .getParentProductsRatings();
 
-        List<WebElement> parentProductsPrices = productPage
-                .selectParentProductsPrices();
+        ElementsCollection parentProductsPrices = productPage
+                .getParentProductsPrices();
 
-        List<WebElement> parentProductsImages = productPage
-                .selectParentProductsImages();
+        ElementsCollection parentProductsImages = productPage
+                .getParentProductsImages();
 
-        List<WebElement> parentProductsCheckboxes = productPage
-                .selectParentProductsCheckboxes();
+        ElementsCollection parentProductsCheckboxes = productPage
+                .getParentProductsCheckboxes();
 
-        SoftAssertions softAssertions = new SoftAssertions();
-        softAssertions.assertThat(parentProducts.size())
-                .as("Number of parent products are not match with number of titles")
-                .isEqualTo(parentProductsTitles.size());
-        softAssertions.assertThat(parentProducts.size())
-                .as("Number of parent products are not match with number of descriptions")
-                .isEqualTo(parentProductsDescriptions.size());
-        softAssertions.assertThat(parentProducts.size())
-                .as("Number of parent products are not match with number of ratings")
-                .isEqualTo(parentProductsRatings.size());
-        softAssertions.assertThat(parentProducts.size())
-                .as("Number of parent products are not match with number of prices")
-                .isEqualTo(parentProductsPrices.size());
-        softAssertions.assertThat(parentProducts.size())
-                .as("Number of parent products are not match with number of images")
-                .isEqualTo(parentProductsImages.size());
-        softAssertions.assertThat(parentProducts.size())
-                .as("Number of parent products are not match with number of checkboxes")
-                .isEqualTo(parentProductsCheckboxes.size());
+        parentProductsTitles.shouldHave(CollectionCondition.size(parentProducts.size()));
+        parentProductsDescriptions.shouldHave(CollectionCondition.size(parentProducts.size()));
+        parentProductsRatings.shouldHave(CollectionCondition.size(parentProducts.size()));
+        parentProductsPrices.shouldHave(CollectionCondition.size(parentProducts.size()));
+        parentProductsImages.shouldHave(CollectionCondition.size(parentProducts.size()));
+        parentProductsCheckboxes.shouldHave(CollectionCondition.size(parentProducts.size()));
+
     }
 
     @Test
-    public void checkHeadPhonesChildProducts(){
+    public void checkHeadPhonesChildProducts() {
 
-        List<WebElement> childProducts = catalogPage
-                .clickOnSectionLink("Электроника")
-                .clickOnCatalogClassifierLink(" Аудиотехника ")
+        ElementsCollection childProducts = homePage
+                .clickOnCatalogLink("Каталог")
+                .clickOnCatalogClassifierLink("Электроника")
+                .clickOnCatalogClassifierItem(" Аудиотехника ")
                 .clickOnProductLink("Наушники")
-                .selectChildProducts();
+                .getChildProducts();
 
-        List<WebElement> childProductsTitles = productPage
-                .selectChildProductsTitle();
+        ElementsCollection childProductsTitles = productPage
+                .getChildProductsTitles();
 
-        List<WebElement> childProductsPrices = productPage
-                .selectChildProductsPrices();
+        ElementsCollection childProductsPrices = productPage
+                .getChildProductsPrices();
 
-        List<WebElement> childProductsImages = productPage
-                .selectChildProductsImages();
+        ElementsCollection childProductsImages = productPage
+                .gettChildProductsImages();
 
-        List<WebElement> childProductsCheckboxes = productPage
-                .selectChildProductsCheckboxes();
+        ElementsCollection childProductsCheckboxes = productPage
+                .gettChildProductsCheckboxes();
 
-        SoftAssertions softAssertions = new SoftAssertions();
-        softAssertions.assertThat(childProducts.size())
-                .as("Number of child products are not match with number of titles")
-                .isEqualTo(childProductsTitles.size());
-        softAssertions.assertThat(childProducts.size())
-                .as("Number of child products are not match with number of prices")
-                .isEqualTo(childProductsPrices.size());
-        softAssertions.assertThat(childProducts.size())
-                .as("Number of child products are not match with number of images")
-                .isEqualTo(childProductsImages.size());
-        softAssertions.assertThat(childProductsImages.size())
-                .as("Number of child products are not match with number of checkboxes")
-                .isEqualTo(childProductsCheckboxes.size());
+        childProductsTitles.shouldHave(CollectionCondition.size(childProducts.size()));
+        childProductsTitles.shouldHave(CollectionCondition.size(childProducts.size()));
+        childProductsPrices.shouldHave(CollectionCondition.size(childProducts.size()));
+        childProductsImages.shouldHave(CollectionCondition.size(childProducts.size()));
+        childProductsCheckboxes.shouldHave(CollectionCondition.size(childProducts.size()));
 
     }
 

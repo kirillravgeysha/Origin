@@ -2,9 +2,11 @@ package com.it_academy.test.onliner;
 
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
+import com.it_academy.navigation.OnlinerNavigation;
 import com.it_academy.pageobject.onliner.CatalogPage;
 import com.it_academy.pageobject.onliner.HomePage;
 import com.it_academy.test.BaseTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -13,15 +15,19 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class CatalogPageTest extends BaseTest {
 
-    HomePage homePage = new HomePage();
+    @BeforeMethod
+    public void navigateToOnlinerCatalog() {
+        OnlinerNavigation.navigateToPortalPage();
+        HomePage homePage = new HomePage();
+        homePage.clickOnCatalogLink("Каталог");
+    }
 
     private CatalogPage catalogPage = new CatalogPage();
 
     @Test
     public void checkCatalogClassifierLinks() {
 
-        ElementsCollection sections = homePage
-                .clickOnCatalogLink("Каталог")
+        ElementsCollection sections = catalogPage
                 .getCatalogClassifierLinks();
         sections.shouldHave(CollectionCondition.containExactTextsCaseSensitive
                 ("Электроника", "Компьютеры и сети", "Бытовая техника", "На каждый день",
@@ -31,18 +37,16 @@ public class CatalogPageTest extends BaseTest {
 
     @Test
     public void checkCatalogClassifierIsExist() {
-        homePage
-                .clickOnCatalogLink("Каталог")
+        catalogPage
                 .clickOnCatalogClassifierLink("Компьютеры")
-                .isCatalogClassifierDisplayed();
+                .checkCatalogClassifierDisplayed();
 
     }
 
     @Test
     public void checkNotebookComputerMonitorAndAccessoriesClassifiers() {
 
-        ElementsCollection classifiers = homePage
-                .clickOnCatalogLink("Каталог")
+        ElementsCollection classifiers = catalogPage
                 .clickOnCatalogClassifierLink("Компьютеры")
                 .getCatalogClassifiers();
 
@@ -60,8 +64,7 @@ public class CatalogPageTest extends BaseTest {
          eg :  1,509 товаров
                от 75,51 р.*/
 
-        ElementsCollection products = homePage
-                .clickOnCatalogLink("Каталог")
+        ElementsCollection products = catalogPage
                 .clickOnCatalogClassifierLink("Компьютеры")
                 .clickOnCatalogClassifierItem(" Комплектующие ")
                 .getCatalogProducts();

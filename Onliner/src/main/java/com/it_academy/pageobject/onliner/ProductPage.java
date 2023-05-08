@@ -2,116 +2,125 @@ package com.it_academy.pageobject.onliner;
 
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
 import com.it_academy.pageobject.BasePage;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
+import static com.codeborne.selenide.Selenide.$x;
 import static java.time.Duration.ofSeconds;
 
 
 public class ProductPage extends BasePage {
 
-    private final ElementsCollection PARENT_PRODUCTS_XPATH = $$x("//div[@class='schema-product']");
+    private final ElementsCollection parentProducts = $$x("//div[@class='schema-product']");
 
-    private final ElementsCollection CHILD_PRODUCTS_XPATH = $$x("//div" +
+    private final ElementsCollection childProducts = $$x("//div" +
             "[@class='schema-product schema-product_children']");
 
-    private final ElementsCollection PARENT_PRODUCTS_TITLE_XPATH = $$x("//div" +
+    private final ElementsCollection parentProductsTitle = $$x("//div" +
             "[@class='schema-product__title']//span[contains(@data-bind, 'product')]");
 
-    private final ElementsCollection CHILD_PRODUCTS_TITLE_XPATH = $$x("//div" +
+    private final ElementsCollection childProductsTitle = $$x("//div" +
             "[@class='schema-product__title']//span[contains(@data-bind, 'children')]");
 
-    private final ElementsCollection PARENT_PRODUCTS_DESCRIPTION_XPATH = $$x("//div" +
+    private final ElementsCollection parentProductsDescription = $$x("//div" +
             "[@class='schema-products']//div[@class='schema-product__title']//span" +
             "[@data-bind='html: product.extended_name || product.full_name']");
 
-    private final ElementsCollection PARENT_PRODUCTS_RATING_XPATH = $$x("//div" +
+    private final ElementsCollection parentProductsRating = $$x("//div" +
             "[@class='schema-products']//div[@class='schema-product__title']//span" +
             "[@data-bind='html: product.extended_name || product.full_name']");
 
-    private final ElementsCollection PARENT_PRODUCTS_PRICE_XPATH = $$x("//div" +
+    private final ElementsCollection parentProductsPrice = $$x("//div" +
             "[@class='schema-product__group']//div[contains(@data-bind, 'data: product')]//a" +
             "[contains(@class, 'value_primary') or contains(@class, 'value_additional')]");
 
-    private final ElementsCollection CHILD_PRODUCTS_PRICE_XPATH = $$x("//div" +
+    private final ElementsCollection childProductsPrice = $$x("//div" +
             "[@class='schema-product schema-product_children']//div[contains(@data-bind, 'data: children')]//a" +
             "[contains(@class, 'value_primary') or contains(@class, 'value_additional')]");
 
-    private final ElementsCollection PARENT_PRODUCTS_IMAGES_XPATH = $$x("//div" +
+    private final ElementsCollection parentProductsImage = $$x("//div" +
             "[@class='schema-product__group']//a[@class='js-product-image-link']/img" +
             "[contains(@data-bind, 'alt: product')]");
 
-    private final ElementsCollection CHILD_PRODUCTS_IMAGES_XPATH = $$x("//div" +
+    private final ElementsCollection childProductsImage = $$x("//div" +
             "[@class='schema-product__group']//a[@class='js-product-image-link']/img" +
             "[contains(@data-bind, 'alt: children')]");
 
-    private final ElementsCollection PARENT_PRODUCTS_CHECKBOXES_XPATH = $$x("//div" +
+    private final ElementsCollection parentProductsCheckbox = $$x("//div" +
             "[@class='schema-product__group']//div[@class='schema-product__compare']/div" +
             "[contains(@data-bind, 'data: product')]");
 
-    private final ElementsCollection CHILD_PRODUCTS_CHECKBOXES_XPATH = $$x("//div" +
+    private final ElementsCollection childProductsCheckbox = $$x("//div" +
             "[@class='schema-product__group']//div[@class='schema-product__compare']/div" +
             "[contains(@data-bind, 'data: children')]");
 
+    private final SelenideElement closeAdButton = $x("//span[contains(text(), 'Супер, спасибо')]");
+
     public ElementsCollection getParentProducts() {
-        return PARENT_PRODUCTS_XPATH.shouldHave(CollectionCondition.allMatch("", el -> el.isDisplayed()), ofSeconds(30));
+        return parentProducts.shouldHave(CollectionCondition.allMatch("", el -> el.isDisplayed()), ofSeconds(30));
     }
 
     public ElementsCollection getChildProducts() {
-        return CHILD_PRODUCTS_XPATH.shouldBe(CollectionCondition.allMatch
+        return childProducts.shouldBe(CollectionCondition.allMatch
                 ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
 
     }
 
     public ElementsCollection getParentProductsTitles() {
-        return PARENT_PRODUCTS_TITLE_XPATH.shouldBe(CollectionCondition.allMatch
+        return parentProductsTitle.shouldBe(CollectionCondition.allMatch
                 ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
     }
 
     public ElementsCollection getChildProductsTitles() {
-        return CHILD_PRODUCTS_TITLE_XPATH.shouldBe(CollectionCondition.allMatch
+        return childProductsTitle.shouldBe(CollectionCondition.allMatch
                 ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
     }
 
     public ElementsCollection getParentProductsDescriptions() {
-        return PARENT_PRODUCTS_DESCRIPTION_XPATH.shouldBe(CollectionCondition.allMatch
+        return parentProductsDescription.shouldBe(CollectionCondition.allMatch
                 ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
     }
 
     public ElementsCollection getParentProductsRatings() {
-        return PARENT_PRODUCTS_RATING_XPATH.shouldBe(CollectionCondition.allMatch
+        return parentProductsRating.shouldBe(CollectionCondition.allMatch
                 ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
     }
 
     public ElementsCollection getParentProductsPrices() {
-        return PARENT_PRODUCTS_PRICE_XPATH.shouldBe(CollectionCondition.allMatch
+        return parentProductsPrice.shouldBe(CollectionCondition.allMatch
                 ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
     }
 
     public ElementsCollection getChildProductsPrices() {
-        return CHILD_PRODUCTS_PRICE_XPATH.shouldBe(CollectionCondition.allMatch
+        return childProductsPrice.shouldBe(CollectionCondition.allMatch
                 ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
     }
 
     public ElementsCollection getParentProductsImages() {
-        return PARENT_PRODUCTS_IMAGES_XPATH.shouldBe(
+        return parentProductsImage.shouldBe(
                 CollectionCondition.anyMatch("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
     }
 
-    public ElementsCollection gettChildProductsImages() {
-        return CHILD_PRODUCTS_IMAGES_XPATH.shouldBe(
+    public ElementsCollection getChildProductsImages() {
+        return childProductsImage.shouldBe(
                 CollectionCondition.anyMatch("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
     }
 
     public ElementsCollection getParentProductsCheckboxes() {
-        return PARENT_PRODUCTS_CHECKBOXES_XPATH.shouldBe(CollectionCondition.allMatch
+        return parentProductsCheckbox.shouldBe(CollectionCondition.allMatch
                 ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
     }
 
-    public ElementsCollection gettChildProductsCheckboxes() {
-        return CHILD_PRODUCTS_CHECKBOXES_XPATH.shouldBe(CollectionCondition.allMatch
+    public ElementsCollection getChildProductsCheckboxes() {
+        return childProductsCheckbox.shouldBe(CollectionCondition.allMatch
                 ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
     }
 
+    public ProductPage closeAd() {
+        closeAdButton.shouldBe(visible, ofSeconds(30)).click();
+        return this;
+    }
 
 }

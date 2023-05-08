@@ -5,7 +5,6 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class DriverManager {
 
-
     public static void initDriver(String type){
         Configuration.browser = type;
         Configuration.browserSize = "1920x1080";

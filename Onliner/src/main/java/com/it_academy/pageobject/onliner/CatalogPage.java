@@ -14,30 +14,30 @@ import static java.time.Duration.ofSeconds;
 
 public class CatalogPage extends BasePage {
 
-    private final ElementsCollection CATALOG_CLASSIFIER_LINKS_XPATH
+    private final ElementsCollection catalogClassifierLinks
             = $$x("//ul[@class='catalog-navigation-classifier ']/li//span[normalize-space(text())]");
 
-    private final SelenideElement CATALOG_CLASSIFIER_XPATH = $x("//div[@class='catalog-navigation-list " +
+    private final SelenideElement catalogClassifier = $x("//div[@class='catalog-navigation-list " +
             " catalog-navigation-list_active catalog-navigation-list_opened']");
 
     private static final String CATALOG_CLASSIFIER_LINK_XPATH_PATTERN =
             "//span[@class='catalog-navigation-classifier__item-title-wrapper' and contains(text(), '%s')]";
 
-    private final ElementsCollection CATALOG_CLASSIFIERS_XPATH = $$x("//div" +
+    private final ElementsCollection catalogClassifiers = $$x("//div" +
             "[@class='catalog-navigation-list__aside-list']/div/div[@class='catalog-navigation-list__aside-title']");
 
     private static final String CATALOG_CLASSIFIER_ITEM_XPATH_PATTERN =
             "//div[contains(@class, 'aside-list')]//div[contains(@class, 'aside-title') and text() = '%s']";
 
-    private final ElementsCollection CATALOG_PRODUCTS_XPATH = $$x("//div[contains" +
+    private final ElementsCollection catalogProducts = $$x("//div[contains" +
             "(@class, 'aside-item_active')]//div[contains(@class, 'dropdown-list')]/a[contains(@href, 'onliner')]");
 
 
-    private final ElementsCollection CATALOG_PRODUCTS_TITLE_XPATH = $$x("//div[contains" +
+    private final ElementsCollection catalogProductsTitle = $$x("//div[contains" +
             "(@class, 'aside-item_active')]//div[contains(@class, 'dropdown-list')]" +
             "/a[contains(@href, 'onliner')]//span[contains(@class, 'title')]");
 
-    private final ElementsCollection CATALOG_PRODUCTS_DESCRIPTION_XPATH = $$x("//div[contains" +
+    private final ElementsCollection catalogProductsDescription = $$x("//div[contains" +
             "(@class, 'aside-item_active')]//div[contains(@class, 'dropdown-list')]" +
             "/a[contains(@href, 'onliner')]//span[contains(@class, 'description')]");
 
@@ -46,12 +46,12 @@ public class CatalogPage extends BasePage {
                     + "/a[contains(@href, 'onliner')]//span[contains(@class, 'title') and contains(text(), '%s')]";
 
     public ElementsCollection getCatalogClassifierLinks() {
-        return CATALOG_CLASSIFIER_LINKS_XPATH.shouldBe(CollectionCondition.allMatch
+        return catalogClassifierLinks.shouldBe(CollectionCondition.allMatch
                 ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
     }
 
-    public void isCatalogClassifierDisplayed() {
-        CATALOG_CLASSIFIER_XPATH.shouldBe(visible, ofSeconds(30));
+    public void checkCatalogClassifierDisplayed() {
+        catalogClassifier.shouldBe(visible, ofSeconds(30));
     }
 
     public CatalogPage clickOnCatalogClassifierLink(String link) {
@@ -65,23 +65,23 @@ public class CatalogPage extends BasePage {
     }
 
     public ElementsCollection getCatalogClassifiers() {
-        return CATALOG_CLASSIFIERS_XPATH.shouldBe(CollectionCondition.anyMatch
+        return catalogClassifiers.shouldBe(CollectionCondition.anyMatch
                 ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
 
     }
 
     public ElementsCollection getCatalogProducts() {
-        return CATALOG_PRODUCTS_XPATH.shouldBe(CollectionCondition.allMatch
+        return catalogProducts.shouldBe(CollectionCondition.allMatch
                 ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
     }
 
     public ElementsCollection getCatalogProductsTitle() {
-        return CATALOG_PRODUCTS_TITLE_XPATH.shouldBe(CollectionCondition.allMatch
+        return catalogProductsTitle.shouldBe(CollectionCondition.allMatch
                 ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
     }
 
     public ElementsCollection getCatalogProductsDescription() {
-        return CATALOG_PRODUCTS_DESCRIPTION_XPATH.shouldBe(CollectionCondition.allMatch
+        return catalogProductsDescription.shouldBe(CollectionCondition.allMatch
                 ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
     }
 

@@ -10,8 +10,8 @@ import org.testng.annotations.Test;
 
 public class ProductPageTest extends BaseTest {
 
-    HomePage homePage = new HomePage();
-    ProductPage productPage = new ProductPage();
+    private HomePage homePage = new HomePage();
+    private ProductPage productPage = new ProductPage();
 
     @Test
     public void checkHeadPhonesProducts() {

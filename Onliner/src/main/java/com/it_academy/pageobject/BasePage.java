@@ -7,11 +7,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 public abstract class BasePage {
 
     public BasePage() {
-        DriverManager.initDriver("chrome");
-    }
-
-    public void navigate(String url) {
-        getWebDriver().get(url);
+        DriverManager.initDriver();
     }
 
 }

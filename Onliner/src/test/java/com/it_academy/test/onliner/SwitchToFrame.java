@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeMethod;
 
 public class SwitchToFrame {
 
-    HomePage homePage = new HomePage();
+   private HomePage homePage = new HomePage();
 
     @BeforeMethod
     public void switchToFastSearchFrame(){

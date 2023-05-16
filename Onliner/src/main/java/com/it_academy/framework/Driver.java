@@ -1,11 +1,15 @@
 package com.it_academy.framework;
 
+import com.it_academy.framework.driver_creator.*;
+
 import java.util.Arrays;
 
 public enum Driver {
 
     CHROME("chrome", new ChromeDriverCreator()),
-    EDGE("edge", new EdgeDriverCreator());
+    EDGE("edge", new EdgeDriverCreator()),
+    FIREFOX("firefox", new FirefoxDriverCreator()),
+    REMOTE("remote", new RemoteDriverCreator());
 
     private String driverType;
     private WebDriverCreator webDriverCreator;

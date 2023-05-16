@@ -5,6 +5,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.it_academy.pageobject.BasePage;
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
@@ -59,63 +60,52 @@ public class ProductPage extends BasePage {
     private final SelenideElement closeAdButton = $x("//span[contains(text(), 'Супер, спасибо')]");
 
     public ElementsCollection getParentProducts() {
-        return parentProducts.shouldHave(CollectionCondition.allMatch("", el -> el.isDisplayed()), ofSeconds(30));
+        return parentProducts.shouldHave(sizeGreaterThan(0), ofSeconds(30));
     }
 
     public ElementsCollection getChildProducts() {
-        return childProducts.shouldBe(CollectionCondition.allMatch
-                ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
+        return childProducts.shouldHave(sizeGreaterThan(0), ofSeconds(30));
 
     }
 
     public ElementsCollection getParentProductsTitles() {
-        return parentProductsTitle.shouldBe(CollectionCondition.allMatch
-                ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
+        return parentProductsTitle.shouldHave(sizeGreaterThan(0), ofSeconds(30));
     }
 
     public ElementsCollection getChildProductsTitles() {
-        return childProductsTitle.shouldBe(CollectionCondition.allMatch
-                ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
+        return childProductsTitle.shouldHave(sizeGreaterThan(0), ofSeconds(30));
     }
 
     public ElementsCollection getParentProductsDescriptions() {
-        return parentProductsDescription.shouldBe(CollectionCondition.allMatch
-                ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
+        return parentProductsDescription.shouldHave(sizeGreaterThan(0), ofSeconds(30));
     }
 
     public ElementsCollection getParentProductsRatings() {
-        return parentProductsRating.shouldBe(CollectionCondition.allMatch
-                ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
+        return parentProductsRating.shouldHave(sizeGreaterThan(0), ofSeconds(30));
     }
 
     public ElementsCollection getParentProductsPrices() {
-        return parentProductsPrice.shouldBe(CollectionCondition.allMatch
-                ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
+        return parentProductsPrice.shouldHave(sizeGreaterThan(0), ofSeconds(30));
     }
 
     public ElementsCollection getChildProductsPrices() {
-        return childProductsPrice.shouldBe(CollectionCondition.allMatch
-                ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
+        return childProductsPrice.shouldHave(sizeGreaterThan(0), ofSeconds(30));
     }
 
     public ElementsCollection getParentProductsImages() {
-        return parentProductsImage.shouldBe(
-                CollectionCondition.anyMatch("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
+        return parentProductsImage.shouldHave(sizeGreaterThan(0), ofSeconds(30));
     }
 
     public ElementsCollection getChildProductsImages() {
-        return childProductsImage.shouldBe(
-                CollectionCondition.anyMatch("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
+        return childProductsImage.shouldHave(sizeGreaterThan(0), ofSeconds(30));
     }
 
     public ElementsCollection getParentProductsCheckboxes() {
-        return parentProductsCheckbox.shouldBe(CollectionCondition.allMatch
-                ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
+        return parentProductsCheckbox.shouldHave(sizeGreaterThan(0), ofSeconds(30));
     }
 
     public ElementsCollection getChildProductsCheckboxes() {
-        return childProductsCheckbox.shouldBe(CollectionCondition.allMatch
-                ("Element is not displayed", el -> el.isDisplayed()), ofSeconds(30));
+        return childProductsCheckbox.shouldHave(sizeGreaterThan(0), ofSeconds(30));
     }
 
     public ProductPage closeAd() {
